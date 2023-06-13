@@ -1,0 +1,10 @@
+{
+    "require": {
+        "twilio/sdk": "^7.4",
+        "slim/slim": "^4.11",
+        "nyholm/psr7": "^1.8",
+        "chrome-php/wrench": "^1.5",
+        "chrome-php/chrome": "^1.9",
+        "guzzlehttp/guzzle": "^7.7",
+    }
+}
