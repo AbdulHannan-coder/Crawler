@@ -1,11 +1,13 @@
 <?php
 
+error_reporting(E_ERROR | E_PARSE);
+
 require 'vendor/autoload.php';
 use HeadlessChromium\BrowserFactory;
 use GuzzleHttp\Client;
 
 // Define the base URL
-$baseUrl = 'https://www.worksafe.govt.nz/publications-and-resources/FilterSearchForm?Search=&Topics=Petroleum&Industries=&PublicationTypes=ACOP&action_resultsWithFilter=GoWithFilter';
+$baseUrl = 'https://www.worksafe.govt.nz/publications-and-resources/FilterSearchForm?Search=&Topics=Fuel&Industries=Petroleum&PublicationTypes=ACOP&action_resultsWithFilter=GoWithFilter';
 
 // Create a variable to keep track of the start parameter in the URL
 $start = 0;
@@ -67,7 +69,7 @@ do {
         Array.from(document.querySelectorAll('.content-holder a')).map(link => link.href);
     ")->getReturnValue();
 
-    // Loop through the document links and download the PDFs
+    // Loop through the document links and download/update the PDFs
     foreach ($documentLinks as $documentLink) {
         // Send a GET request to the PDF URL
         $response = $client->get($documentLink);
@@ -86,15 +88,19 @@ do {
         $filename = $originalFilename; // Filename or fallback to 'Untitled.pdf'
         $destination = $directory . '/' . $filename;
 
-        // Skip the download if the file already exists
         if (file_exists($destination)) {
-            echo 'Skipped: ' . $filename . ' (Already downloaded)' . PHP_EOL . '<br>';
-            continue;
+            if (is_file($destination)) {
+                // Delete the existing file
+                unlink($destination);
+                echo 'Deleted existing file: ' . $filename . PHP_EOL . '<br>';
+            }
         }
 
         // Save the PDF file
-        file_put_contents($destination, $pdfContent);
-        echo 'Downloaded: ' . $filename . PHP_EOL . '<br>';
+        $result = file_put_contents($destination, $pdfContent);
+        if ($result !== false) {
+            echo 'Downloaded: ' . $filename . PHP_EOL . '<br>';
+        }
     }
 
     // Increment the start parameter for the next iteration
