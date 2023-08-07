@@ -1,19 +1,19 @@
 <?php
 
-error_reporting(E_ERROR | E_PARSE);
+error_reporting(error_reporting() & ~E_WARNING);
 
 require 'vendor/autoload.php';
 use HeadlessChromium\BrowserFactory;
 use GuzzleHttp\Client;
 
 // Define the base URL
-$baseUrl = 'https://www.worksafe.govt.nz/publications-and-resources/FilterSearchForm?Search=&Topics=Fuel&Industries=Petroleum&PublicationTypes=ACOP&action_resultsWithFilter=GoWithFilter';
+$baseUrl = 'https://www.worksafe.govt.nz/publications-and-resources/FilterSearchForm?Search=&Topics=Pyrotechnics&Industries=&PublicationTypes=ACOP&action_resultsWithFilter=GoWithFilter';
 
 // Create a variable to keep track of the start parameter in the URL
 $start = 0;
 
 // Create an instance of the browser factory
-$browserFactory = new BrowserFactory('C:/Program Files/Google/Chrome/Application/chrome.exe');
+$browserFactory = new BrowserFactory();
 
 // Launch the browser
 $browser = $browserFactory->createBrowser();

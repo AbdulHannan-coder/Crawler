@@ -63,6 +63,7 @@ class ComposerStaticIniteca84751ef557219fdf46dae45a60315
         'F' => 
         array (
             'FastRoute\\' => 10,
+            'Facebook\\WebDriver\\' => 19,
         ),
     );
 
@@ -148,6 +149,10 @@ class ComposerStaticIniteca84751ef557219fdf46dae45a60315
         'FastRoute\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
+        ),
+        'Facebook\\WebDriver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/facebook/webdriver/lib',
         ),
     );
 
